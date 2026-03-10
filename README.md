@@ -1,98 +1,175 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🎮 LevelUp Games API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![NestJS](https://img.shields.io/badge/NestJS-Framework-red)
+![TypeScript](https://img.shields.io/badge/TypeScript-Language-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![TypeORM](https://img.shields.io/badge/TypeORM-ORM-green)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+API REST desenvolvida utilizando **NestJS**, **TypeORM** e **MySQL** para gerenciamento de **produtos** e **categorias**.
 
-## Description
+O projeto implementa um **CRUD completo** para ambas as entidades e estabelece um relacionamento **One-to-Many** entre elas.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Projeto desenvolvido como parte do **Bootcamp de Desenvolvimento Web da Generation Brasil**.
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+# 📚 Tecnologias Utilizadas
 
-## Compile and run the project
+- NestJS
+- TypeScript
+- Node.js
+- TypeORM
+- MySQL
+- REST API
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+# 🧠 Arquitetura do Projeto
 
-# production mode
-$ npm run start:prod
-```
+O projeto segue a arquitetura padrão recomendada pelo NestJS, baseada em separação de responsabilidades:
 
-## Run tests
+- Controller → Responsável pelas rotas da API  
+- Service → Responsável pela lógica de negócio  
+- Module → Organização das funcionalidades  
+- Entity → Representação das tabelas no banco de dados  
 
-```bash
-# unit tests
-$ npm run test
+Estrutura do projeto:
 
-# e2e tests
-$ npm run test:e2e
+src  
+ ├─ categoria  
+ │   ├─ categoria.controller.ts  
+ │   ├─ categoria.service.ts  
+ │   ├─ categoria.module.ts  
+ │   └─ entities  
+ │       └─ categoria.entity.ts  
+ │  
+ ├─ produto  
+ │   ├─ produto.controller.ts  
+ │   ├─ produto.service.ts  
+ │   ├─ produto.module.ts  
+ │   └─ entities  
+ │       └─ produto.entity.ts  
+ │  
+ ├─ app.module.ts  
+ └─ main.ts  
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+# 🔗 Relacionamento entre Entidades
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+O sistema implementa o relacionamento:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Categoria (1) -------- (N) Produto
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+- Uma categoria pode possuir vários produtos  
+- Um produto pertence a apenas uma categoria  
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Exemplo:
 
-## Resources
+Categoria: Consoles  
 
-Check out a few resources that may come in handy when working with NestJS:
+Produtos:
+- Playstation 5  
+- Xbox Series X  
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+# 🚀 Funcionalidades da API
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Categorias
 
-## Stay in touch
+GET /categorias  
+GET /categorias/:id  
+POST /categorias  
+PUT /categorias/:id  
+DELETE /categorias/:id  
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## Produtos
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+GET /produtos  
+GET /produtos/:id  
+POST /produtos  
+PUT /produtos/:id  
+DELETE /produtos/:id  
+
+---
+
+# 📦 Exemplo de Requisição
+
+Criar Categoria
+
+POST /categorias
+
+{
+  "nome": "Consoles"
+}
+
+---
+
+Criar Produto
+
+POST /produtos
+
+{
+  "nome": "Playstation 5",
+  "preco": 4500,
+  "categoria": {
+    "id": 1
+  }
+}
+
+---
+
+# ⚙️ Como Executar o Projeto
+
+1️⃣ Clonar o repositório
+
+git clone https://github.com/seu-usuario/levelup-games.git
+
+2️⃣ Entrar na pasta do projeto
+
+cd levelup-games
+
+3️⃣ Instalar dependências
+
+npm install
+
+4️⃣ Configurar banco de dados
+
+No arquivo **app.module.ts** configure:
+
+type: 'mysql'  
+host: 'localhost'  
+port: 3306  
+username: 'root'  
+password: 'root'  
+database: 'db_levelup_games'  
+
+5️⃣ Executar aplicação
+
+npm run start:dev
+
+A API estará disponível em:
+
+http://localhost:3000
+
+---
+
+# 🧪 Testando a API
+
+Você pode testar os endpoints utilizando ferramentas como:
+
+- Insomnia
+- Postman
+- Thunder Client
+
+---
+
+# 👨‍💻 Autor
+
+Desenvolvido por **Renan Lima**
+
+LinkedIn  
+https://www.linkedin.com/in/renanferreiralima
