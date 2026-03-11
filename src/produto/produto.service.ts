@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Produto } from './entities/produto.entity';
 import { Categoria } from '../categoria/entities/categoria.entity';
-
+import { MoreThan } from 'typeorm';
 
 @Injectable()
 export class ProdutoService {
@@ -14,18 +14,22 @@ export class ProdutoService {
     private categoriaRepository: Repository<Categoria>,
   ) {}
 
-  async create(produto: Produto, categoriaId: string | number): Promise<Produto> {
-    // Garantir que seja número
-    const id = Number(categoriaId);
+  async create(produto: Produto): Promise<Produto> {
 
-    const categoria = await this.categoriaRepository.findOne({ where: { id } });
-    if (!categoria) {
-      throw new NotFoundException(`Categoria com ID ${id} não encontrada`);
-    }
+  const categoria = await this.categoriaRepository.findOne({
+    where: { id: produto.categoria.id }
+  });
 
-    produto.categoria = categoria;
-    return this.produtoRepository.save(produto);
+  if (!categoria) {
+    throw new NotFoundException(
+      `Categoria com ID ${produto.categoria.id} não encontrada`
+    );
   }
+
+  produto.categoria = categoria;
+
+  return this.produtoRepository.save(produto);
+}
 
   async findAll(): Promise<Produto[]> {
     return this.produtoRepository.find({ relations: ['categoria'] });
@@ -68,4 +72,12 @@ export class ProdutoService {
     const produto = await this.findOne(id);
     await this.produtoRepository.remove(produto);
   }
+  async findByPrecoMaior(preco: number): Promise<Produto[]> {
+  return this.produtoRepository.find({
+    where: {
+      preco: MoreThan(preco),
+    },
+    relations: ['categoria'],
+  });
+}
 }

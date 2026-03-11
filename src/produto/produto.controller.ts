@@ -7,16 +7,18 @@ export class ProdutoController {
   constructor(private readonly produtoService: ProdutoService) {}
 
   @Post()
-  async create(
-    @Body() produto: Produto,
-    @Query('categoriaId') categoriaId: number,
-  ): Promise<Produto> {
-    return this.produtoService.create(produto, categoriaId);
+  create(@Body() produto: Produto) {
+    return this.produtoService.create(produto);
   }
 
   @Get()
   async findAll(): Promise<Produto[]> {
     return this.produtoService.findAll();
+  }
+
+  @Get('/preco/maior/:preco')
+  findByPrecoMaior(@Param('preco') preco: number) {
+    return this.produtoService.findByPrecoMaior(preco);
   }
 
   @Get(':id')
